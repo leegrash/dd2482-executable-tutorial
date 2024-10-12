@@ -32,7 +32,7 @@ jobs:
       continue-on-error: true
     - name: Notify Webhook
       run: |
-        curl -X POST https://hooks.slack.com/services/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 \
+        curl -X POST https://a4d4-85-230-190-125.ngrok-free.app/webhook \
         -H "Content-Type: application/json" \
         -d '{"text": "Hello world"}'
 
