@@ -4,15 +4,5 @@ module.exports = {
   testMatch: ['**/__tests__/**/*.test.js'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
-  },
-  reporters: [
-    "default",
-    [
-      "jest-junit",
-      {
-        outputDirectory: "reports",  // Directory for the report
-        outputName: "jest-junit.xml",     // File name for the report
-      },
-    ],
-  ],
+  }
 };
