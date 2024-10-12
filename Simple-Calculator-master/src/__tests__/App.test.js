@@ -22,7 +22,10 @@ test('should divide two numbers', () => {
 
 test('should always fail', () => {
   assert.strictEqual(1, 2);
-  console.log ("This test should fail, and I don't think this console log will be visible");
+});
+
+test('should always fail test 2', () => {
+  assert.strictEqual(10, 20);
 });
 
 function add(a, b) {
