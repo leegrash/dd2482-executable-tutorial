@@ -29,9 +29,10 @@ jobs:
     - run: npm test 
       working-directory: Simple-Calculator-master
       continue-on-error: true
-    - name: Test Report
+    - name: Run Dorny test Reporter
       continue-on-error: true
-      uses: dorny/test-reporter@v1
+      working-directory: Simple-Calculator-master
+      uses: dorny/test-reporter@v1.9.1
       if: success() || failure()    # run this step even if previous step failed
       with:
         name: JEST Tests            # Name of the check run which will be created
