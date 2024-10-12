@@ -31,8 +31,9 @@ jobs:
       working-directory: Simple-Calculator-master
       continue-on-error: true
     - name: Notify Webhook
+      if: ${{ github.event.client_payload && github.event.client_payload.post_url != '' }}
       run: |
-        curl -X POST https://a4d4-85-230-190-125.ngrok-free.app/webhook \
+        curl -X POST ${{ github.event.client_payload.post_url }} \
         -H "Content-Type: application/json" \
         -d '{"run_id": "${{ github.run_id }}"}'
 
