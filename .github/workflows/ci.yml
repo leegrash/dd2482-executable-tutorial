@@ -30,5 +30,10 @@ jobs:
     - run: npm test 
       working-directory: Simple-Calculator-master
       continue-on-error: true
+    - name: Notify Webhook
+      run: |
+        curl -X POST https://5f45-85-230-190-125.ngrok-free.app/api/github-action \
+        -H "Content-Type: application/json" \
+        -d '{"status": "completed", "action": "github_action", "repository": "${{ github.repository }}"}'
 
       

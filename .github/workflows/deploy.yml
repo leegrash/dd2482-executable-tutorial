@@ -17,3 +17,10 @@ jobs:
         run: |
           echo "Deploying to production..."
           # Add your deployment commands here, such as ssh or API calls to cloud provider
+      - name: Notify Webhook
+        run: |
+          curl -X POST https://5f45-85-230-190-125.ngrok-free.app/api/github-action \
+          -H "Content-Type: application/json" \
+          -d '{"status": "completed", "action": "github_action", "repository": "${{ github.repository }}"}'
+
+      
