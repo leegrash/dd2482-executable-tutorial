@@ -32,8 +32,8 @@ jobs:
       continue-on-error: true
     - name: Notify Webhook
       run: |
-        curl -X POST https://5f45-85-230-190-125.ngrok-free.app/api/github-action \
+        curl -X POST https://hooks.slack.com/services/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 \
         -H "Content-Type: application/json" \
-        -d '{"status": "completed", "action": "github_action", "repository": "${{ github.repository }}"}'
+        -d '{"text": "Hello world"}'
 
       
