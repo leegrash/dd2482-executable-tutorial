@@ -31,7 +31,7 @@ jobs:
           .testResults[] | 
           .assertionResults[] | 
           select(.status == "failed") | 
-          "\(.fullName): \(.failureMessages | join("\n"))"
-        ' | while read -r line; do
-          echo "::error file=Simple-Calculator-master/test-results.json::${line}"
+          "\(.fullName) | \(.location) | \(.failureMessages | join("\n"))"
+        ' | while IFS='|' read -r test_name location error_message; do
+          echo "::error file=${location}::${test_name}: ${error_message}"
         done
