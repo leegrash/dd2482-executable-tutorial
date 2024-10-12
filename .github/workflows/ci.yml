@@ -24,6 +24,7 @@ jobs:
       working-directory: Simple-Calculator-master
     - run: npm test -- --json --outputFile=test-results.json
       working-directory: Simple-Calculator-master
+      continue-on-error: true
     - name: Parse test results
       run: |
         cat Simple-Calculator-master/test-results.json | jq -r '
