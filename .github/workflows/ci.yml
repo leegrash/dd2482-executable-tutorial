@@ -26,6 +26,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
       working-directory: Simple-Calculator-master
+    - run: mkdir -p Simple-Calculator-master/reports
     - run: npm test 
       working-directory: Simple-Calculator-master
       continue-on-error: true
