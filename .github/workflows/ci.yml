@@ -19,8 +19,9 @@ jobs:
         node-version: [14.x, 16.x]
 
     steps:
-    - uses: actions/checkout@v2 
-      working-directory: Simple-Calculator-master
+    - uses: actions/checkout@v4
+      with:
+        submodules: true
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
