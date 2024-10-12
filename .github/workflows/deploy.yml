@@ -21,6 +21,6 @@ jobs:
         run: |
           curl -X POST https://a4d4-85-230-190-125.ngrok-free.app/webhook \
           -H "Content-Type: application/json" \
-          -d '{"run_id": "${{ github.run_id }}}'
+          -d '{"run_id": "${{ github.run_id }}"}'
 
       
