@@ -30,7 +30,6 @@ jobs:
       working-directory: Simple-Calculator-master
       continue-on-error: true
     - name: Run Dorny test Reporter
-      continue-on-error: true
       working-directory: Simple-Calculator-master
       uses: dorny/test-reporter@v1.9.1
       if: success() || failure()    # run this step even if previous step failed
