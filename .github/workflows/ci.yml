@@ -30,16 +30,41 @@ jobs:
     - run: npm test > test.log 2>&1
       working-directory: Simple-Calculator-master
       continue-on-error: true
-    - name: Capture Logs
-      id: capture_logs
+    - name: Upload install log
+      uses: actions/upload-artifact@v2
+      with:
+        name: install-log
+        path: Simple-Calculator-master/install.log
+    - name: Upload test log
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-log
+        path: Simple-Calculator-master/test.log
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Download install log
+      uses: actions/download-artifact@v2
+      with:
+        name: install-log
+        path: ./logs
+    - name: Download test log
+      uses: actions/download-artifact@v2
+      with:
+        name: test-log
+        path: ./logs
+    - name: Read and format logs
+      id: format_logs
       run: |
-        echo "install_log=$(cat Simple-Calculator-master/install.log)" >> $GITHUB_ENV
-        echo "test_log=$(cat Simple-Calculator-master/test.log)" >> $GITHUB_ENV
+        INSTALL_LOG=$(cat ./logs/install.log)
+        TEST_LOG=$(cat ./logs/test.log)
+        echo "install_log=${INSTALL_LOG}" >> $GITHUB_ENV
+        echo "test_log=${TEST_LOG}" >> $GITHUB_ENV
     - name: Notify Webhook
       if: ${{ github.event.client_payload && github.event.client_payload.post_url != '' }}
       run: |
         curl -X POST ${{ github.event.client_payload.post_url }} \
         -H "Content-Type: application/json" \
         -d '{"run_id": "${{ github.run_id }}", "install_log": "${{ env.install_log }}", "test_log": "${{ env.test_log }}" }'
-
-      
