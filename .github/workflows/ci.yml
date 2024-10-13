@@ -31,12 +31,12 @@ jobs:
       working-directory: Simple-Calculator-master
       continue-on-error: true
     - name: Upload install log
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: install-log
         path: Simple-Calculator-master/install.log
     - name: Upload test log
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: test-log
         path: Simple-Calculator-master/test.log
@@ -46,12 +46,12 @@ jobs:
     needs: build
     steps:
     - name: Download install log
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: install-log
         path: ./logs
     - name: Download test log
-      uses: actions/download-artifact@v2
+      uses: actions/download-artifact@v3
       with:
         name: test-log
         path: ./logs
