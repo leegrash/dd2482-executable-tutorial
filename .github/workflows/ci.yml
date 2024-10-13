@@ -31,6 +31,7 @@ jobs:
       working-directory: Simple-Calculator-master
       continue-on-error: true
     - name: Capture Logs
+      working-directory: Simple-Calculator-master
       id: capture_logs
       run: |
         echo "install_log=$(cat install.log)" >> $GITHUB_ENV
