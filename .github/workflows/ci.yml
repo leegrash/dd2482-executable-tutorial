@@ -9,7 +9,7 @@ permissions:
   checks: write
 
 jobs:
-  build:
+  ci-workflow:
     runs-on: ubuntu-latest
 
     strategy:
