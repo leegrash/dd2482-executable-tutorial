@@ -30,11 +30,16 @@ jobs:
     - run: npm test 
       working-directory: Simple-Calculator-master
       continue-on-error: true
+    - name: Capture Logs
+      id: capture_logs
+      run: |
+        echo "install_log=$(cat $(npm root -g)/../npm-debug.log)" >> $GITHUB_ENV
+        echo "test_log=$(cat $(npm root -g)/../npm-debug.log)" >> $GITHUB_ENV
     - name: Notify Webhook
       if: ${{ github.event.client_payload && github.event.client_payload.post_url != '' }}
       run: |
         curl -X POST ${{ github.event.client_payload.post_url }} \
         -H "Content-Type: application/json" \
-        -d '{"run_id": "${{ github.run_id }}"}'
+        -d '{"run_id": "${{ github.run_id }}", "install_status": "${{ env.install_status }}", "install_log": "${{ env.install_log }}", "test_status": "${{ env.test_status }}", "test_log": "${{ env.test_log }}" }'
 
       
