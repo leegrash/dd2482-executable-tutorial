@@ -31,11 +31,10 @@ jobs:
       working-directory: Simple-Calculator-master
       continue-on-error: true
     - name: Capture Logs
-      working-directory: Simple-Calculator-master
       id: capture_logs
       run: |
-        echo "install_log=$(cat install.log)" >> $GITHUB_ENV
-        echo "test_log=$(cat test.log)" >> $GITHUB_ENV
+        echo "install_log=$(cat Simple-Calculator-master/install.log)" >> $GITHUB_ENV
+        echo "test_log=$(cat Simple-Calculator-master/test.log)" >> $GITHUB_ENV
     - name: Notify Webhook
       if: ${{ github.event.client_payload && github.event.client_payload.post_url != '' }}
       run: |
