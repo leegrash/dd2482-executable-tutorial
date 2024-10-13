@@ -24,48 +24,17 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install > install.log 2>&1
+    - run: npm install
       working-directory: Simple-Calculator-master
       continue-on-error: true
-    - run: npm test > test.log 2>&1
+    - run: npm test 
       working-directory: Simple-Calculator-master
       continue-on-error: true
-    - name: Upload install log
-      uses: actions/upload-artifact@v3
-      with:
-        name: install-log
-        path: Simple-Calculator-master/install.log
-    - name: Upload test log
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-log
-        path: Simple-Calculator-master/test.log
-  notify:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-    - name: Download install log
-      uses: actions/download-artifact@v3
-      with:
-        name: install-log
-        path: ./logs
-    - name: Download test log
-      uses: actions/download-artifact@v3
-      with:
-        name: test-log
-        path: ./logs
-    - name: Read and format logs
-      id: format_logs
-      run: |
-        INSTALL_LOG=$(base64 ./logs/install.log)
-        TEST_LOG=$(base64 ./logs/test.log)
-        echo "install_log=${INSTALL_LOG}" >> $GITHUB_ENV
-        echo "test_log=${TEST_LOG}" >> $GITHUB_ENV
     - name: Notify Webhook
       if: ${{ github.event.client_payload && github.event.client_payload.post_url != '' }}
       run: |
-        INSTALL_LOG=$(echo "${{ env.install_log }}" | base64 --decode)
-        TEST_LOG=$(echo "${{ env.test_log }}" | base64 --decode)
         curl -X POST ${{ github.event.client_payload.post_url }} \
         -H "Content-Type: application/json" \
-        -d "{\"run_id\": \"${{ github.run_id }}\", \"install_log\": \"$INSTALL_LOG\", \"test_log\": \"$TEST_LOG\" }"
+        -d '{"run_id": "${{ github.run_id }}"}'
+
+      
