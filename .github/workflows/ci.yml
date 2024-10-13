@@ -24,17 +24,17 @@ jobs:
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install
+    - run: npm install > install.log 2>&1
       working-directory: Simple-Calculator-master
       continue-on-error: true
-    - run: npm test 
+    - run: npm test > test.log 2>&1
       working-directory: Simple-Calculator-master
       continue-on-error: true
     - name: Capture Logs
       id: capture_logs
       run: |
-        echo "install_log=$(cat Simple-Calculator-master/install.log)" >> $GITHUB_ENV
-        echo "test_log=$( cat Simple-Calculator-master/test.log )" >> $GITHUB_ENV
+        echo "install_log=$(cat install.log)" >> $GITHUB_ENV
+        echo "test_log=$(cat test.log)" >> $GITHUB_ENV
     - name: Notify Webhook
       if: ${{ github.event.client_payload && github.event.client_payload.post_url != '' }}
       run: |
