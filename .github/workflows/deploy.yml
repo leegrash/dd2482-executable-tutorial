@@ -1,0 +1,26 @@
+name: Deploy to Production
+
+on:
+  repository_dispatch:
+    types: trigger-deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to production server
+        run: |
+          echo "Deploying to production..."
+          # Add your deployment commands here, such as ssh or API calls to cloud provider
+      - name: Notify Webhook
+        if: ${{ github.event.client_payload && github.event.client_payload.post_url != '' }}
+        run: |
+          curl -X POST ${{ github.event.client_payload.post_url }} \
+          -H "Content-Type: application/json" \
+          -d '{"run_id": "${{ github.run_id }}"}'
+
+      
